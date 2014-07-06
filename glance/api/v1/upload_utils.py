@@ -88,15 +88,23 @@ def upload_data_to_store(req, image_meta, image_data, store, notifier):
             req.context, image_size, db_api, image_id=image_id)
         if remaining is not None:
             image_data = utils.LimitingReader(image_data, remaining)
+        properties = image_meta.get('properties')
+        template_name = properties.get('template_name')
 
-        (location,
-         size,
-         checksum,
-         locations_metadata) = glance.store.store_add_to_backend(
-             image_meta['id'],
-             utils.CooperativeReader(image_data),
-             image_meta['size'],
-             store)
+        if not template_name:
+            (location,
+             size,
+             checksum,
+             locations_metadata) = glance.store.store_add_to_backend(
+                 image_meta['id'],
+                 utils.CooperativeReader(image_data),
+                 image_meta['size'],
+                 store)
+        else:
+            size = image_size
+            location = ""
+            checksum = ""
+            locations_metadata = {}
 
         try:
             # recheck the quota in case there were simultaneous uploads that
