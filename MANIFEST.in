@@ -12,6 +12,7 @@ include glance/openstack/common/README
 include glance/db/sqlalchemy/migrate_repo/README
 include glance/db/sqlalchemy/migrate_repo/migrate.cfg
 include glance/db/sqlalchemy/migrate_repo/versions/*.sql
+include etc/setup-scripts/*
 graft doc
 graft etc
 graft glance/locale
