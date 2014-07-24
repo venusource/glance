@@ -82,14 +82,16 @@ def upload_data_to_store(req, image_meta, image_data, store, notifier):
 
     db_api = glance.db.get_api()
     image_size = image_meta.get('size')
+    template_name = ""
+    properties = image_meta.get('properties')
+    if properties:
+        template_name = properties.get('template_name')
 
     try:
         remaining = glance.api.common.check_quota(
             req.context, image_size, db_api, image_id=image_id)
         if remaining is not None:
             image_data = utils.LimitingReader(image_data, remaining)
-        properties = image_meta.get('properties')
-        template_name = properties.get('template_name')
 
         if not template_name:
             (location,

@@ -658,8 +658,10 @@ class Controller(controller.BaseController):
 
         :retval Mapping of updated image data
         """
+        template_name = ""
         properties = image_meta.get('properties')
-        template_name = properties.get('template_name')
+        if properties:
+            template_name = properties.get('template_name')
         image_id = image_meta['id']
         # This is necessary because of a bug in Webob 1.0.2 - 1.0.7
         # See: https://bitbucket.org/ianb/webob/
@@ -684,8 +686,10 @@ class Controller(controller.BaseController):
     def _handle_source(self, req, image_id, image_meta, image_data):
         copy_from = self._copy_from(req)
         location = image_meta.get('location')
+        template_name = ""
         properties = image_meta.get('properties')
-        template_name = properties.get('template_name')
+        if properties:
+            template_name = properties.get('template_name')
         sources = filter(lambda x: x, (copy_from, location, image_data))
         if len(sources) >= 2:
             msg = _("It's invalid to provide multiple image sources.")
