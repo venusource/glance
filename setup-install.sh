@@ -1,8 +1,8 @@
 INSTALL_ENV=`python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()"`
 [ -d ${INSTALL_ENV}/glance ] || mkdir -p ${INSTALL_ENV}/glance
 cp -rf /usr/share/glance/* ${INSTALL_ENV}/glance
-cp -rf /usr/local/etc/rc.d/init.d/glance* /etc/init.d
-cp  /usr/local/etc/rc.d/init.d/* /etc/rc.d/init.d/
+cp -rf /usr/local/etc/glance/rc.d/init.d/* /etc/init.d
+cp  /usr/local/etc/glance/rc.d/init.d/* /etc/rc.d/init.d/
 
 [ -d /etc/glance ] || mkdir /etc/glance
 cp /usr/local/etc/glance/* /etc/glance
