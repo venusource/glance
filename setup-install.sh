@@ -5,7 +5,7 @@ cp -rf /usr/local/etc/glance/rc.d/init.d/* /etc/init.d
 cp  /usr/local/etc/glance/rc.d/init.d/* /etc/rc.d/init.d/
 
 [ -d /etc/glance ] || mkdir /etc/glance
-cp /usr/share/etc/glance/etc/* /etc/glance
+cp /usr/share/glance/etc/* /etc/glance
 cp /usr/local/*.py ${INSTALL_ENV}/glance/
  
 if [ -f /etc/glance/glance.conf.sample ];then
