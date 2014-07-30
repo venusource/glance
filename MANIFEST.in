@@ -13,6 +13,9 @@ include glance/db/sqlalchemy/migrate_repo/README
 include glance/db/sqlalchemy/migrate_repo/migrate.cfg
 include glance/db/sqlalchemy/migrate_repo/versions/*.sql
 include etc/setup-scripts/*
+include etc/glance-registry
+include etc/glance-api
+include etc/glance-scrubber
 graft doc
 graft etc
 graft glance/locale
