@@ -1,25 +1,25 @@
 #!/bin/sh
 #
-# openstack-glance-api OpenStack Image Service API server
+# openstack-glance-scrubber OpenStack Image Service scrubber daemon
 #
 # chkconfig:   - 98 02
-# description: OpenStack Image Service (code-named Glance) API server
+# description: OpenStack Image Service (code-named Glance) scrubber daemon
 
 ### BEGIN INIT INFO
 # Provides:
 # Required-Start: $remote_fs $network $syslog
 # Required-Stop: $remote_fs $syslog
 # Default-Stop: 0 1 6
-# Short-Description: Glance API server
-# Description: OpenStack Image Service (code-named Glance) API server
+# Short-Description: Glance scrubber daemon
+# Description: OpenStack Image Service (code-named Glance) scrubber daemon
 ### END INIT INFO
 
 . /etc/rc.d/init.d/functions
 
-suffix=api
+suffix=scrubber
 prog=openstack-glance-$suffix
-exec="/usr/bin/glance-$suffix"
-config="/etc/glance/glance-$suffix.conf"
+exec="/usr/local/bin/glance-$suffix"
+user_config="/etc/glance/glance-$suffix.conf"
 pidfile="/var/run/glance/glance-$suffix.pid"
 
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
@@ -28,9 +28,9 @@ lockfile=/var/lock/subsys/$prog
 
 start() {
     [ -x $exec ] || exit 5
-    [ -f $config ] || exit 6
+    [ -f $user_config ] || exit 7
     echo -n $"Starting $prog: "
-    daemon --user glance --pidfile $pidfile "$exec &>/dev/null & echo \$! > $pidfile"
+    daemon --user glance --pidfile $pidfile "$exec --daemon &>/dev/null & echo \$! > $pidfile"
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile

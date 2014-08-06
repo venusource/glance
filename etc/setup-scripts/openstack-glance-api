@@ -18,7 +18,7 @@
 
 suffix=api
 prog=openstack-glance-$suffix
-exec="/usr/bin/glance-$suffix"
+exec="/usr/local/bin/glance-$suffix"
 config="/etc/glance/glance-$suffix.conf"
 pidfile="/var/run/glance/glance-$suffix.pid"
 
