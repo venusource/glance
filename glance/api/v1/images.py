@@ -668,11 +668,12 @@ class Controller(controller.BaseController):
         # issue/12/fix-for-issue-6-broke-chunked-transfer
         req.is_body_readable = True
         location, location_metadata = self._upload(req, image_meta)
-        return self._activate(req,
-                              image_id,
-                              location,
-                              location_metadata,
-                              from_state='saving') if location or template_name else None
+        return self._activate(
+            req,
+            image_id,
+            location,
+            location_metadata,
+            from_state='saving') if location or template_name else None
 
     def _get_size(self, context, image_meta, location):
         # retrieve the image size from remote store (if not provided)
